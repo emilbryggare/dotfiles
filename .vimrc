@@ -1,0 +1,86 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'kien/ctrlp.vim'
+Bundle 'klen/python-mode'
+Bundle 'scrooloose/syntastic'
+Bundle 'AutoComplPop'
+
+filetype plugin indent on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+" SETIINGS
+" --------
+"
+" COLORS:
+set t_Co=256
+syntax enable
+set background=dark
+colorscheme solarized
+set cursorline
+
+" OTHER:
+set virtualedit=onemore " Allow for cursor beyond last character
+set history=1000 " Store a ton of history (default is 20)
+set spell " Spell checking on
+set mouse=a " Automatically enable mouse usage
+set mousehide " Hide the mouse cursor while typing
+scriptencoding utf-8
+" Remap JJ to <Esc>
+imap jj <Esc>
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+" The default leader is '\', but many people prefer ',' as it's in a standard
+" location. 
+let mapleader = ','
+" line numbers
+set nu
+" formatting
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=4
+set tabstop=4
+" The following line sets the smartindent mode for *.py files. It means that
+" after typing lines which start with any of the keywords in the list (ie.
+" def, class, if, etc) the next line will automatically indent itself to the
+" next level of indentation
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+" search
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+
+" allow plugins by file type
+filetype plugin on
+filetype indent on
