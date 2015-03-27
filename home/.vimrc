@@ -21,6 +21,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'AutoComplPop'
 
 filetype plugin indent on     " required!
+call vundle#end()
 "
 " Brief help
 " :BundleList          - list configured bundles
