@@ -1,11 +1,9 @@
 [user]
 	name = Emil Bryggare
-	email = emil@blocket.se
+	email = emil@emilbryggare.com
 [push]
-	default = tracking
+	default = simple
 [diff]
 	tool = vimdiff
-[pull]
-	rebase = true
 [core]
 	editor = vim
