@@ -83,3 +83,13 @@ unset set_prompts
 
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 source "/Users/emilbryggare/.git-prompt.sh"
+
+# Increase bash history size
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
+# Always save history
+PROMPT_COMMAND='history -a'
+
+# Do not save duplicates, and do not save lines beginning with space
+export HISTCONTROL=ignorespace:erasedups
