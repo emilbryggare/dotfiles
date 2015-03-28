@@ -39,6 +39,12 @@ call vundle#end()
 set t_Co=256
 syntax enable
 set background=dark
+if $ITERM_PROFILE == 'dark'
+	set background=dark
+endif
+if $ITERM_PROFILE == 'light'
+	set background=light
+endif
 colorscheme solarized
 set cursorline
 
