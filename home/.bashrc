@@ -138,7 +138,7 @@ set_prompts() {
     PS1+="\n"
     PS1+="\[$reset$white\]\$ \[$reset\]" # $ (and reset color)
 
-    export PS1
+#    export PS1
 }
 
 set_prompts
