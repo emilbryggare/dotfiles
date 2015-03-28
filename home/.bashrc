@@ -83,6 +83,7 @@ unset set_prompts
 
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 source "$HOME/.git-prompt.sh"
+homeshick --quiet refresh
 
 # Increase bash history size
 export HISTSIZE=10000
