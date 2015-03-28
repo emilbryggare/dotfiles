@@ -1,3 +1,7 @@
+# Setup locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # Setup Homeshick
 if [ ! -d "$HOME/.homesick/repos/homeshick" ]
 then
