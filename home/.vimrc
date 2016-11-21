@@ -19,6 +19,18 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'klen/python-mode'
 Plugin 'scrooloose/syntastic'
 Plugin 'AutoComplPop'
+Plugin 'cmather/vim-meteor-snippets'
+Plugin 'groenewege/vim-less'
+Plugin 'elzr/vim-json'
+Plugin 'tpope/vim-markdown'
+Plugin 'pangloss/vim-javascript'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'ternjs/tern_for_vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'editorconfig/editorconfig-vim'
+" Actually does much more than syntax highlighting but that's overkill for me
+" NeoBundle "kchmck/vim-coffee-script"
+" NeoBundle "hdima/python-syntax"
 
 filetype plugin indent on     " required!
 call vundle#end()
@@ -92,3 +104,7 @@ set scrolloff=3                 " Minimum lines to keep above and below cursor
 " allow plugins by file type
 filetype plugin on
 filetype indent on
+
+" LINTING
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
