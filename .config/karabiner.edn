@@ -1,0 +1,545 @@
+{
+  :default true
+ :alone 1000
+ :delay 500
+ :held 500
+ :sim 50
+ :simlayer-threshold 250
+  :modifiers {
+    :super-hyper [:command :shift :control :option :fn]
+    :hyper [:command :shift :control :option]
+    :cos [:command :shift :option]
+    :cst [:command :shift :control]
+    :co [:command :option]
+    :cs [:command :shift]
+    :ct [:command :control]
+    :to [:control :option]
+    :ts [:control :shift]
+    :os [:option :shift]
+  }
+ :devices {:apple-internal [{:vendor_id 1452 :product_id 632}]
+           ; All QMK keyboards I own
+           :qmk [{:vendor_id 12951 :product_id 6505} ; Moonlander
+           ]
+ }
+  :applications {;
+    :chrome ["com.google.Chrome"]
+    :code ["com.microsoft.VSCode"]
+    :slack ["com.tinyspeck.slackmacgap"]
+  }
+
+ ; :layers {
+ ;   :spacebar-mode {:key :delete_or_backspace }
+ ;   :sym-mode {:key :delete_forward}
+ ; }
+ ; :simlayers {;
+ ;   ; both hands 
+ ;   :cursor-mode {:key :g}
+ ;   ; right hands
+ ; }
+  :layers {
+    ;; :spacebar-mode { :key :right_option}  
+      ;; :sym-mode {:key :semicolon}
+    :num-mode {:key :slash }
+    :superduper-mode {:key :z }
+   }
+   
+    
+   :simlayers {;
+    ;; :spacebar-mode { :key :spacebar}  
+      ;; ; both hands 
+      ;; :mouse-mode {:key :semicolon }
+      ;; ; left hand
+      ;; :non-mode {:key :b}
+      ;; :alt-mode {:key :a}
+      ;; :alt-shift-mode {:key}
+      ;; :shift-mode {:key :d}
+      ;; :movement-mode {:key :f}
+      ;; :cursor-mode {:key :g}
+    ;; :emoji-mode {:key :z}
+      ;; ; right hands
+      ;; :delete-mode {:key :j}
+      ;; :launch-mode {:key :l}
+      :tab-mode {:key :tab}
+   }
+   
+  :tos {
+    :hanna {:key :s  }
+    :delete {:key :delete_or_backspace}
+    :return {:key :return_or_enter}
+    :tilde {:key :grave_accent_and_tilde}
+    :focus_terminal {:key :j :modi :command}
+    :focus_editor {:key :e :modi :control}
+    :expand_selection {:key :right_arrow :modi :cst}
+    :shrink_selection {:key :left_arrow :modi :cst}
+
+    ;named symbols
+    :open_brace {:key :open_bracket :modi :shift}
+    :close_brace {:key :close_bracket :modi :shift}
+    :open_paren {:key :9 :modi :shift}
+    :close_paren {:key :0 :modi :shift}
+    :less_than {:key :comma :modi :shift}
+    :greater_than {:key :period :modi :shift}
+
+    ;shortcuts
+    :autocomplete {:key :spacebar :modi :control} 
+    :cursor_find_match {:key :d :modi :command}
+    :cursor_above {:key :up_arrow :modi :co}
+    :cursor_below {:key :down_arrow :modi :co}
+    :insert_line_below {:key :return_or_enter :modi :command} ;!Creturn_or_enter
+    :insert_line_above {:key :return_or_enter :modi :cs} ;!Creturn_or_enter
+    :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
+    :open_1password {:key :p :modi :hyper} ;!OCbackslash
+    :take_screenshot {:key :6 :modi :cs} ;!CS6
+  }
+
+  :templates {;
+    :alfred "osascript -e 'tell application \"Alfred 4\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'"
+    :code-project "osascript -e 'tell application \"Visual Studio Code\" to activate' &&
+                  open -a 'Visual Studio Code' %s -g %s
+                  "
+    :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
+    :launch "osascript -e 'tell application \"%s\" to activate'"
+    :open-chrome "osascript -e '
+              set address to \"%s\"
+              
+              tell application \"Google Chrome\"
+                  activate
+                      if not (exists window 1) then reopen
+                      repeat with w in windows
+                              set i to 1
+                              repeat with t in tabs of w
+                              if URL of t contains address then
+                                      set active tab index of w to i
+                                      set index of w to 1
+                                      return
+                              end if
+                              set i to i + 1
+                              end repeat
+                      end repeat
+                      open location \"http://\" & address
+              end tell
+                  '"
+    :paste "osascript -e '
+              set the clipboard to \"%s\"
+              tell application \"System Events\"
+                      keystroke \"v\" using command down
+              end tell
+      '"
+
+    ;
+  }
+
+  :main [             
+    ;; {:des "swe mode"
+    ;;              :rules [
+    ;;                                                      [[:f :j] {:set ["swe-mode" 1]}]
+    ;;   [:##a :!Oa ["swe-mode" 1]]; å
+    ;;                                                      [[:f :j] {:set ["swe-mode" 0]} ["swe-mode" 1]]
+    ;;              ]}
+          {:des "special characters fixes"
+      :rules [
+      [:fn :left_control]; * bullet
+      [:!Speriod :!Ssemicolon]; * bullet
+      [:!Scomma :semicolon]; * bullet
+    ]}
+
+ {:des "special characters one shot"
+      :rules [:sym-one
+      [:tab [:grave_accent_and_tilde ["sym-one" 0]]]; tilde`
+      [:##q [:!S8 ["sym-one" 0]]]; * bullet
+      [:##w [:!Sbackslash["sym-one" 0]]]; | pipe
+      [:##e [:!S1["sym-one" 0]]]; ! exclamation mark
+      [:##r [:!Shyphen ["sym-one" 0]]]; _ underscoR
+      [:##t [:!Sequal_sign ["sym-one" 0]]]; + plus tlus above equal
+      [:escape [:!Scomma ["sym-one" 0]]] ; < open arrow
+      [:##a [:slash ["sym-one" 0]]]; / slash
+      [:##s [:open_brace ["sym-one" 0]]]; { brace open (script)
+      [:##d [:open_bracket ["sym-one" 0]]]; [ bracket open (data array)
+      [:##f [:!S9 ["sym-one" 0]]]; ( paren open (Fucntion)
+      [:##g [:equal_sign ["sym-one" 0]]]; = equal egual
+      [:##z [:backslash ["sym-one" 0]]]; \ backzlash
+      [:left_shift [:!Speriod ["sym-one" 0]]] ; > close arrow
+      [:##x [:close_brace ["sym-one" 0]]]; } close brace 
+      [:##c [:close_bracket ["sym-one" 0]]];  ["sym-one" 0]] close bracket
+      [:##v [:!S0 ["sym-one" 0]]]; ) close paren
+      [:##b [:hyphen ["sym-one" 0]]]; -
+      [:##y [:!Sslash ["sym-one" 0]]]; ? why   question
+      [:##u [:!S6 ["sym-one" 0]]]; ^ up caret
+      [:##i [:!Sgrave_accent_and_tilde ["sym-one" 0]]];  ~ tIlde
+      [:##o [:!S2 ["sym-one" 0]]]; @ omail
+      [:##p [:!S5 ["sym-one" 0]]]; % percent
+      [:##h [:!S3 ["sym-one" 0]]]; # hash
+      [:##j [:quote ["sym-one" 0]]];  
+      [:##k [:!Squote ["sym-one" 0]]]; 
+      [:##n [:!S7 ["sym-one" 0]]]; & aNd 
+      [:##m [:!S4 ["sym-one" 0]]];  $ dollar money
+      [:##comma [:semicolon ["sym-one" 0]]]; ; semicolon
+      [:##period [:!Ssemicolon ["sym-one" 0]]]; : colon
+    ]}
+      {:des "special characters"
+      :rules [:sym-mode
+      [:tab [:grave_accent_and_tilde]]; tilde`
+      [:##q :!S8]; * bullet
+      [:##w :!Sbackslash]; | pipe
+      [:##e :!S1]; ! exclamation mark
+      [:##r :!Shyphen]; _ underscoR
+      [:##t :!Sequal_sign]; + plus tlus above equal
+      ;; [:##a :!S7]; & amperSand
+      [:escape :!Scomma] ; < open arrow
+      [:##a :slash]; / slash
+      [:##s :open_brace]; { brace open (script)
+      [:##d :open_bracket]; [ bracket open (data array)
+      [:##f :!S9]; ( paren open (Fucntion)
+      [:##g :equal_sign]; = equal egual
+      [:##z :backslash]; \ backzlash
+      [:left_shift :!Speriod] ; > close arrow
+      [:##x :close_brace]; } close brace 
+      [:##c :close_bracket]; ] close bracket
+      [:##v :!S0]; ) close paren
+      [:##b :hyphen];  - minus bminus below equal
+
+      [:##y :!Sslash]; ? why   question
+      [:##u :!S6]; ^ up caret
+      [:##i :!Sgrave_accent_and_tilde];  ~ tIlde
+      [:##o :!S2]; @ omail
+      [:##p :!S5]; % percent
+      [:##h :!S3]; # hash
+      [:##j :quote];  
+      [:##k :!Squote];  
+      [:##n :!S7]; & aNd 
+      [:##m :!S4];  $ dollar money
+      [:##comma :semicolon]; ; semicolon
+      [:##period :!Ssemicolon]; : colon
+    ]}
+
+
+    {:des "mouse"
+      :rules [:mouse-mode
+      [:d {:mkey {:y 1536}}]
+      [:e {:mkey {:y -1536}}]
+      [:s {:mkey {:x -1536}}]
+      [:f {:mkey {:x 1536}}]
+      [:left_command {:pkey :button1}]
+      [:right_command {:pkey :button2}]
+    ]}
+
+        {:des "Cmd -> Cmd / Hyphen" :rules [:!qmk [:##left_command :##left_command nil {:alone :hyphen}]]}
+        ;; {:des "Left Shift -> Left Shift / ( " :rules [:!qmk [:##left_shift :##left_shift nil {:alone :open_paren}]]}
+        ;; {:des "Right Shift -> Right Shift / ( " :rules [:!qmk [:##right_shift :##right_shift nil {:alone :close_paren}]]}
+        {:des "Right option -> Cmd " :rules [:!qmk [:##right_option :##right_command ]]}
+        {:des "Right application -> Option " :rules [:!qmk [:##application :##right_option ]]}
+
+        ;; {:des "SuperDuper <- S+D" :rules [ [{:sim [:s :d]
+        ;;                              :simo {:interrupt true
+        ;;                                     :dorder :insensitive
+        ;;                                     :uorder :insensitive
+        ;;                                     :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
+        {:des "SuperDuper H -> Left" :rules [:superduper-mode [:##h :left_arrow]]}
+        {:des "SuperDuper J -> Down" :rules [:superduper-mode [:##j :down_arrow]]}
+        {:des "SuperDuper K -> Up" :rules [:superduper-mode [:##k :up_arrow]]}
+        {:des "SuperDuper L -> Right" :rules [:superduper-mode [:##l :right_arrow]]}
+        ;; {:des "SuperDuper F -> Cmd" :rules [:superduper-mode [:##f :left_command]]}
+        {:des "SuperDuper ; -> Delete" :rules [:superduper-mode [:##semicolon :delete_or_backspace]]}
+        {:des "SuperDuper ; -> Forward Delete" :rules [:superduper-mode [:##quote :delete_forward]]}
+        {:des "SuperDuper I -> Prev Tab" :rules [:superduper-mode [:##i :!CSopen_bracket]]}
+        {:des "SuperDuper O -> Next Tab" :rules [:superduper-mode [:##o :!CSclose_bracket]]}
+        {:des "SuperDuper U -> First Tab" :rules [:superduper-mode [:##u :!C1 :!code]]}
+        {:des "SuperDuper P -> Last Tab" :rules [:superduper-mode [:##p :!C9 :!code]]}
+        {:des "SuperDuper U -> First Tab VSCODE" :rules [:superduper-mode [:##u :!T1 :code]]}
+        {:des "SuperDuper P -> Last Tab VSCODE" :rules [:superduper-mode [:##p :!T0 :code]]}
+        {:des "SuperDuper A -> Option" :rules [:superduper-mode [:##a :left_control]]}
+        {:des "SuperDuper S -> Option" :rules [:superduper-mode [:##s :left_option]]}
+        {:des "SuperDuper D -> Option" :rules [:superduper-mode [:##d :left_command]]}
+        {:des "SuperDuper F -> Option" :rules [:superduper-mode [:##f :left_shift]]}
+        {:des "SuperDuper V -> Shift" :rules [:superduper-mode [:##v :left_shift]]}
+        {:des "SuperDuper space -> tab" :rules [:superduper-mode [:##spacebar :tab]]}
+         {:des "swe"
+      :rules [
+      [:!OSo [:!Ou :!So]]; Ö
+      [:!Oo [:!Ou :##o]]; Ö
+      [:!ESo [:!Ou :!So]]; Ö
+      [:!Eo [:!Ou :##o]]; Ö
+      [:!OSsemicolon [:!Ou :!Sa]]; Ö
+      [:!Osemicolon [:!Ou :##a]]; Ö
+      [:!ESsemicolon [:!Ou :!Sa]]; Ö
+      [:!Esemicolon [:!Ou :##a]]; Ö
+      [:!OSa [:!OSa]]; Ö
+      [:!Oa [:!Oa]]; Ö
+      [:!ESa [:!OSa]]; Ö
+      [:!Ea [:!Oa]]; Ö
+      [:!ORo [:!Ou :!So]]; Ö
+      [:!Oo [:!Ou :##o]]; Ö
+      [:!ERo [:!Ou :!So]]; Ö
+      [:!Eo [:!Ou :##o]]; Ö
+      [:!ORsemicolon [:!Ou :!Sa]]; Ö
+      [:!Osemicolon [:!Ou :##a]]; Ö
+      [:!ERsemicolon [:!Ou :!Sa]]; Ö
+      [:!Esemicolon [:!Ou :##a]]; Ö
+      [:!ORa [:!OSa]]; Ö
+      [:!Oa [:!Oa]]; Ö
+      [:!ERa [:!OSa]]; Ö
+      [:!Ea [:!Oa]]; Ö      ;; [:!Rquote [:!Ou :!Ra]]; Ö
+      ;; [:quote [:!Ou :a]]; ö
+      ;; [:!Sopen_bracket :!SOa]; Ö
+      ;; [:!Ropen_bracket :!ROa]; Ö
+      ;; [:open_bracket :!Oa]; ö
+      ;; [:close_bracket :!Squote]; ""
+      
+
+    ]}
+{:des "sym mode"
+                 :rules [
+                  ;;  [:semicolon ["sym-mode" 1] nil {:alone {:set ["sym-mode" 1] :halt true} :afterup {:set ["sym-mode" 0]} }] 
+;;                   [:semicolon ["sym-mode" 1] nil {:afterup {:set ["sym-mode" 0]} }] 
+[:semicolon ["sym-mode" 1] nil {:afterup ["sym-mode" 0]
+                                                         :alone ["sym-one" 1] }]
+                 ]
+                 }
+    {:des "Esc -> Hyper / Esc" :rules [[:escape :!CTOleft_shift nil {:alone :escape}]]}
+        ;; {:des "Shift + Space = space = qoutes" :rules [[:!Sspacebar [:spacebar :equal_sign :spacebar :!Squote ]]]}
+        {:des "launch"
+         :rules
+         [:launch-mode
+          [:1 :open_1password]
+          [:c [:launch "code" ]]
+          [:d [:launch "Discord"]]
+          [:i [:launch "iTerm"]]
+          [:s [:launch "Slack"]]
+          [:t [:launch "Chrome"]] ;
+          [:p [:launch "Spotify"]] ;
+          [:n [:launch "Notion"]] ;
+          [:z [:launch "Visual Studio Code"]];viZ
+          ]}
+
+    {:des "numbers"
+      :rules [:num-mode
+      [:##t :!Sequal_sign]; + plus tlus above equal
+      [:##g :equal_sign]; = equal egual
+      [:##b :hyphen];  - minus bminus below equal
+      [:##a :slash]; / slash
+      [:##q [:!S8 ["sym-one" 0]]]; * bullet
+      [:##x :1]
+      [:##c :2]
+      [:##v :3]
+      [:##s :4]; 
+      [:##d :5]
+      [:##f :6]
+      [:##w :7]
+      [:##e :8]
+      [:##r :9]
+      [:##spacebar :0]   
+    ]}
+
+
+    {:des "spacebar"
+      :rules [:spacebar-mode
+      [:tab :!Sgrave_accent_and_tilde]; ````````
+      [:q :!S1]; ! 
+      [:w :!S2]; @ 
+      [:e :!S3]; # 
+      [:r :!S4]; $ 
+      [:t :!S5]; % 
+      [:y :!S6]; ^ 
+      [:u :!S7]; & 
+      [:i :!S8]; * 
+      [:o :keypad_plus]; +
+      [:p :equal_sign]; =
+      [:slash :backslash]; \
+      ;symbols [](){}<>
+       
+      [:a :open_bracket]
+      [:s :close_bracket]
+      [:d :open_paren]
+      [:f :close_paren]
+
+      [:h :!Sbackslash]; |
+      [:j :open_brace]
+      [:k :close_brace]
+
+      [:l :!Shyphen]
+      [:semicolon :hyphen]
+
+      ;symbol sequences
+      [:left_shift [:spacebar :equal_sign :spacebar]]; =  =  =  =  =  =  =  =  =  =
+      [:comma [:!S9 :!S0 :equal_sign :greater_than :spacebar]];()=> 
+      [:v [:!S9 :!S0 :spacebar :equal_sign :greater_than :spacebar :open_brace :close_brace :left_arrow]];()=> {_} 
+      [:period [:spacebar :equal_sign :greater_than :spacebar]]; =>  => ={} =""
+      [:m [:equal_sign :open_brace :close_brace :left_arrow]];={}
+      [:z [:equal_sign :open_bracket :close_bracket :left_arrow]];={}
+      [:slash [:equal_sign :!Squote :!Squote :left_arrow]];=""
+    ]}
+
+    {:des "code"
+      :rules [:code
+      [:!!u [:backslash :backslash :s]]
+      [:!!i :expand_selection]
+      [:!!k :shrink_selection]
+      [:right_command :right_command nil {:alone :focus_editor}]
+      [:left_option :left_option nil {:alone :focus_terminal}]
+    ]}
+
+
+    {:des "delete mode"
+      :rules [:delete-mode
+      [:escape :!Cdelete_or_backspace] ; FIX
+      [:a :!Odelete_or_backspace]
+      [:s :delete_or_backspace]
+      [:d :delete_forward]
+      [:f :!Odelete_forward]
+      [:g :!Cdelete_forward]
+    ]}
+    {:des "homerow cursor" 
+      :rules [:cursor-mode
+      [:h :cursor_find_match]
+      [:j :cursor_below]
+      [:k :cursor_above]
+      [:u [:backslash :backslash :s]]
+      ]
+    }
+
+    {:des "homerow movement"
+      :rules [:movement-mode
+      [:##y :!Cleft_arrow]
+      [:##o :!Cright_arrow]
+
+      [:##h :left_arrow]
+      [:##j :down_arrow]
+      [:##k :up_arrow]
+      [:##l :right_arrow]
+      [:##a :left_control]
+      [:##s :left_option]
+      [:##d :left_command]
+
+      [:semicolon :autocomplete]
+
+      [:return_or_enter :insert_line_below]
+
+
+
+
+      [:left_shift :expand_selection]
+      ;
+    ]}
+
+    {:des "homerow alt+shift"
+      :rules [:alt-shift-mode
+      [:##y :!Shome]
+      [:##o :!Send]
+      [:##h :!OSleft_arrow]
+      [:##j :!OSdown_arrow]
+      [:##k :!OSup_arrow]
+      [:##l :!OSright_arrow]
+
+      [:##spacebar {:pkey :button1 :modi :left_command}]
+      [:##left_shift :##button2]
+
+    ;
+    ]}
+
+    {:des "homerow shift"
+      :rules [:shift-mode
+      [:##y :!Shome]
+      [:##o :!Send]
+
+      [:##h :!Sleft_arrow]
+      [:##j :!Sdown_arrow]
+      [:##k :!Sup_arrow]
+      [:##l :!Sright_arrow]
+
+
+      [:left_shift :shrink_selection]
+      [:return_or_enter :insert_line_above]
+
+      [:semicolon :expand_selection]
+      [:quote :shrink_selection]
+
+      ;
+    ]}
+    {:des "homerow alt"
+      :rules [:alt-mode
+      [:##u :!CSopen_bracket]
+      [:##i :!CSclose_bracket]
+      [:##y :!C1 :!code]
+      [:##o :!C9 :!code]
+      [:##y :!T1 :code]
+      [:##o :!T0 :code]
+      [:##h :!Oleft_arrow]
+      [:##j :!Odown_arrow]
+      [:##k :!Oup_arrow]
+      [:##l :!Oright_arrow]
+      ;
+    ]}
+    {:des "tab-mode"
+      :rules [:tab-mode
+      ;open urls
+      [:e [:open-chrome "egghead.io"]]
+      [:g [:open-chrome "mail.google.com"]]
+      [:j [:open-chrome "js.new"]];
+      [:k [:open-chrome "github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
+      [:l [:open-chrome "localhost:3000"]]
+      [:m [:open-chrome "access.mymind.com/cards"]]
+      [:n [:open-chrome "news.google.com"]]
+      [:r [:open-chrome "app.restream.io/titles"]]
+      [:t [:open-chrome "twitter.com"]]
+      [:u [:open-chrome "egghead.io/lessons/new"]];Upload
+      [:x [:open-chrome "next.egghead.io"]]
+      [:y [:open-chrome "youtube.com"]]
+;
+      ]}
+         {:des "emoji"
+         :rules [:emoji-mode
+                 [:a [:paste ""]] ;                
+                 [:b [:paste "😊"]] ;blush
+                 [:c [:paste "👏"]] ;clap
+                 [:d [:paste "🧐"]] ;dignified
+                 [:e :emoji_picker] 
+                 [:f [:paste "🤦‍♂️"]] ;facepalm️
+                 [:g [:paste "😬"]] ;grimace
+                 [:h [:paste "😍"]] ;heart-eyes
+                 [:i [:paste "👀"]] ;I
+                 [:j [:paste "😂"]] ;joking
+                 [:k [:paste ""]] ;
+                 [:l [:paste "❤️"]] ;love
+                 [:m [:paste "🤯"]] ;mind blown 
+                 [:n :emoji_picker] ;
+                 [:o [:paste "💩"]] ;pOop
+                 [:p [:paste "🎉"]] ;party
+                 [:q [:paste "🤫"]] ;quiet
+                 [:r [:paste "🏎"]] ;racecar
+                 [:s [:paste "😢"]] ;sad
+                 [:t [:paste "🤔"]] ;thinking
+                 [:u [:paste "🤷‍♂️"]] ;shrUg
+                 [:v [:paste "😎"]] ;very cool
+                 [:w [:paste "😉"]] ;wink:
+                 [:x [:paste "😵"]] ;x-eyes
+                 [:y [:paste "😅"]] ;sweatY
+                 [:left_command [:paste "👍"]]
+                 [:left_option [:paste "👎"]]
+                 ;
+                 ]}
+
+
+
+]
+}
+
+;; rule [:period ["media-mode" 1] nil {:afterup ["media-mode" 0] :alone :period}]
+;;       |_____| |_______________| |_| |_________________________________________|
+;;        <from>    <to>      <conditions>         <other options>
+
+    ;; !  | means mandatory
+    ;; #  | means optional
+    ;; C  | left_command
+    ;; T  | left_control
+    ;; O  | left_option
+    ;; S  | left_shift
+    ;; F  | fn
+    ;; Q  | right_command
+    ;; W  | right_control
+    ;; E  | right_option
+    ;; R  | right_shift
+    ;; 
+    ;; !! | mandatory command + control + optional + shift (hyper)
+    ;; ## | optional any
+;; 
