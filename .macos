@@ -1,0 +1,29 @@
+# install OH MY ZSH
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+TODO INSTALL BREW
+CONFIGURE KARABINER PROFILE DEFAULT INSTALL GOKUW
+CONFIGURE 1PASSWORD
+INSTALL SETAPP APPS MANUALLY
+TODO ITERM PROFILE 
+TODO MAILHOG
+TODO DNS
+TODO Caddy
+
+echo "Generating an RSA token for GitHub"
+mkdir -p ~/.ssh
+touch ~/.ssh/config
+ssh-keygen -t rsa -b 4096 -C "emil@emilbryggare.com"
+echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
+eval "$(ssh-agent -s)"
+echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
+
+echo "cloning dotfiles"
+git clone git@github.com:kentcdodds/dotfiles.git "${HOME}/dotfiles"
+ln -s "${HOME}/Projects/dotfiles/.zshrc" "${HOME}/.zshrc"
+ln -s "${HOME}/Projects/dotfiles/.gitconfig" "${HOME}/.gitconfig"
+ln -s "${HOME}/Projects/dotfiles/.config/karabiner.edn" "${HOME}/.config/karabiner.edn"
+
+# Disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+

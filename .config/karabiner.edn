@@ -41,7 +41,6 @@
     ;; :spacebar-mode { :key :right_option}  
       ;; :sym-mode {:key :semicolon}
     :num-mode {:key :slash }
-    :superduper-mode {:key :z }
    }
    
     
@@ -223,13 +222,8 @@
       [:left_command {:pkey :button1}]
       [:right_command {:pkey :button2}]
     ]}
-
-        {:des "Cmd -> Cmd / Hyphen" :rules [:!qmk [:##left_command :##left_command nil {:alone :hyphen}]]}
-        ;; {:des "Left Shift -> Left Shift / ( " :rules [:!qmk [:##left_shift :##left_shift nil {:alone :open_paren}]]}
-        ;; {:des "Right Shift -> Right Shift / ( " :rules [:!qmk [:##right_shift :##right_shift nil {:alone :close_paren}]]}
         {:des "Right option -> Cmd " :rules [:!qmk [:##right_option :##right_command ]]}
         {:des "Right application -> Option " :rules [:!qmk [:##application :##right_option ]]}
-
         ;; {:des "SuperDuper <- S+D" :rules [ [{:sim [:s :d]
         ;;                              :simo {:interrupt true
         ;;                                     :dorder :insensitive
@@ -296,7 +290,10 @@
                                                          :alone ["sym-one" 1] }]
                  ]
                  }
-    {:des "Esc -> Hyper / Esc" :rules [[:escape :!CTOleft_shift nil {:alone :escape}]]}
+                  
+    {:des "Caps lock -> Super Duper / Esc" :rules [[:##caps_lock ["superduper-mode" 1] nil {:alone :escape :afterup ["superduper-mode" 0]}]]}
+    {:des "Quote ->  Hyper / Quote" :rules [[:quote :!CTOleft_shift nil {:alone :quote }]]}
+    ;; {:des "Caps lock -> Hyper / Esc" :rules [[:caps_lock :!CTOleft_shift nil {:alone :escape}]]}
         ;; {:des "Shift + Space = space = qoutes" :rules [[:!Sspacebar [:spacebar :equal_sign :spacebar :!Squote ]]]}
         {:des "launch"
          :rules
