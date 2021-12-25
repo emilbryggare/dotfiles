@@ -1,0 +1,40 @@
+{
+  local_certs
+}
+https://sake.test, https://www.sake.test {
+  reverse_proxy localhost:3005
+  tls internal
+}
+
+https://public.convas.sake.test {
+  reverse_proxy localhost:3000
+  tls internal
+}
+https://*.web.test {
+  reverse_proxy localhost:3000
+  tls internal
+}
+https://web.test {
+  reverse_proxy localhost:3005
+  tls internal
+}
+https://convas.pink {
+  reverse_proxy localhost:3001
+  tls internal
+}
+https://*.convas.pink {
+  reverse_proxy localhost:3000
+  tls internal
+}
+https://*.sake.test {
+  reverse_proxy localhost:3000
+  tls internal
+}
+https://*.sake-test.test {
+  reverse_proxy localhost:3003
+  tls internal
+}
+https://*.basecanvas.test {
+  reverse_proxy localhost:3000
+  tls internal
+}
