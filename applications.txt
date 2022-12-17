@@ -1,0 +1,75 @@
+1Password.app
+Adobe Creative Cloud
+Adobe Photoshop 2022
+Adobe Premiere Rush 2.0
+Anki.app
+Authy Desktop.app
+Blackmagic RAW
+Brave Browser.app
+DBeaver.app
+DaVinci Resolve
+Descript.app
+DiffusionBee.app
+Discord.app
+Docker.app
+Dungeon Crawl Stone Soup - Tiles.app
+Electron Fiddle.app
+Elgato Control Center.app
+Fig.app
+Figma.app
+Final Cut Pro Trial.app
+GarageBand.app
+Gifski.app
+GitHub Desktop.app
+Google Chrome Canary.app
+Google Chrome.app
+Google Docs.app
+Google Drive.app
+Google Sheets.app
+Google Slides.app
+Grammarly Desktop.app
+Hammerspoon.app
+Homerow.app
+Kap.app
+Karabiner-Elements.app
+Karabiner-EventViewer.app
+Keynote.app
+Kindle.app
+Linear.app
+Live Home 3D.app
+Logseq.app
+Messenger.app
+Microsoft Teams.app
+Mimestream.app
+NordVPN.app
+Notion.app
+Numbers.app
+OBS.app
+Obsidian.app
+Pages.app
+RDM.app
+Raycast.app
+Readwise.app
+Safari.app
+ScreenFlow.app
+Send to Kindle
+Setapp
+Setapp.app
+ShurePlus MOTIV.app
+Slack.app
+Spotify.app
+Steam.app
+SuperDuper!.app
+Todoist.app
+Toggl Track.app
+Utilities
+Visual Studio Code.app
+Wally.app
+Warp.app
+WhatsApp.app
+Xcode.app
+YubiKey Manager.app
+iMovie.app
+iTerm.app
+logioptionsplus.app
+zoom.us.app

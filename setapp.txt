@@ -1,0 +1,12 @@
+Bartender.app
+CleanShot X.app
+DevUtils.app
+Gifox.app
+Icon
+PixelSnap.app
+Session.app
+Sip.app
+Sizzy.app
+TablePlus.app
+TripMode.app
+Xnapper.app
