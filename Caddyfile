@@ -38,3 +38,7 @@ https://*.basecanvas.test {
   reverse_proxy localhost:3000
   tls internal
 }
+https://emilbryggare.test {
+  reverse_proxy localhost:3000
+  tls internal
+}

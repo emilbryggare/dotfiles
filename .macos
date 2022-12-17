@@ -5,11 +5,22 @@ TODO INSTALL BREW
 CONFIGURE KARABINER PROFILE DEFAULT INSTALL GOKUW
 CONFIGURE 1PASSWORD
 INSTALL SETAPP APPS MANUALLY
+POSTGRES
+MAILHog
 TODO ITERM PROFILE 
 TODO MAILHOG
 TODO DNS
+sudo mkdir -pv /etc/resolver
+sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/pink'
+sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/test'
 TODO Caddy
+ENV FILES?
+Table plus config
 
+Shortcuts for setapp appsa
+Ray shortcuts for apps
+
+Consider starting all these with a script instead of always running ing bg
 echo "Generating an RSA token for GitHub"
 mkdir -p ~/.ssh
 touch ~/.ssh/config
@@ -23,7 +34,17 @@ git clone git@github.com:kentcdodds/dotfiles.git "${HOME}/dotfiles"
 ln -s "${HOME}/Projects/dotfiles/.zshrc" "${HOME}/.zshrc"
 ln -s "${HOME}/Projects/dotfiles/.gitconfig" "${HOME}/.gitconfig"
 ln -s "${HOME}/Projects/dotfiles/.config/karabiner.edn" "${HOME}/.config/karabiner.edn"
+ln -s "${HOME}/Projects/dotfiles/Caddyfile" "/opt/homebrew/etc/Caddyfile"
+ln -s "${HOME}/Projects/dotfiles/dnsmasq.conf" "/opt/homebrew/etc/dnsmasq.conf"
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Show hidden files in finder
+defaults write http://com.apple.Finder AppleShowAllFiles true
+
+# Key repeat 
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain KeyRepeat -int 1
+
 

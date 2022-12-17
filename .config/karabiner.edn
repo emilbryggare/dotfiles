@@ -21,6 +21,7 @@
            ; All QMK keyboards I own
            :qmk [{:vendor_id 12951 :product_id 6505} ; Moonlander
            ]
+           :sculpt [{:vendor_id 1118 :product_id 1957}] ; sculpt
  }
   :applications {;
     :chrome ["com.google.Chrome"]
@@ -130,6 +131,9 @@
   }
 
   :main [             
+        {:des "Left option -> Cmd " :rules [:sculpt [:##left_option :##left_command ]]}
+        {:des "Left cmd -> option " :rules [:sculpt [:##left_command :##left_option ]]}
+
     ;; {:des "swe mode"
     ;;              :rules [
     ;;                                                      [[:f :j] {:set ["swe-mode" 1]}]
@@ -138,20 +142,19 @@
     ;;              ]}
           {:des "special characters fixes"
       :rules [
-      [:fn :left_control]; * bullet
       [:!Speriod :!Ssemicolon]; * bullet
       [:!Scomma :semicolon]; * bullet
     ]}
 
  {:des "special characters one shot"
       :rules [:sym-one
-      [:tab [:grave_accent_and_tilde ["sym-one" 0]]]; tilde`
+      [:##tab [:##grave_accent_and_tilde ["sym-one" 0]]]; tilde`
       [:##q [:!S8 ["sym-one" 0]]]; * bullet
       [:##w [:!Sbackslash["sym-one" 0]]]; | pipe
       [:##e [:!S1["sym-one" 0]]]; ! exclamation mark
       [:##r [:!Shyphen ["sym-one" 0]]]; _ underscoR
       [:##t [:!Sequal_sign ["sym-one" 0]]]; + plus tlus above equal
-      [:escape [:!Scomma ["sym-one" 0]]] ; < open arrow
+      [:##caps_lock [:!Scomma ["sym-one" 0]]] ; < open arrow
       [:##a [:slash ["sym-one" 0]]]; / slash
       [:##s [:open_brace ["sym-one" 0]]]; { brace open (script)
       [:##d [:open_bracket ["sym-one" 0]]]; [ bracket open (data array)
@@ -178,14 +181,14 @@
     ]}
       {:des "special characters"
       :rules [:sym-mode
-      [:tab [:grave_accent_and_tilde]]; tilde`
+      [:##tab [:##grave_accent_and_tilde]]; tilde`
       [:##q :!S8]; * bullet
       [:##w :!Sbackslash]; | pipe
       [:##e :!S1]; ! exclamation mark
       [:##r :!Shyphen]; _ underscoR
       [:##t :!Sequal_sign]; + plus tlus above equal
       ;; [:##a :!S7]; & amperSand
-      [:escape :!Scomma] ; < open arrow
+      [:##caps_lock :!Scomma] ; < open arrow
       [:##a :slash]; / slash
       [:##s :open_brace]; { brace open (script)
       [:##d :open_bracket]; [ bracket open (data array)
@@ -204,7 +207,7 @@
       [:##o :!S2]; @ omail
       [:##p :!S5]; % percent
       [:##h :!S3]; # hash
-      [:##j :quote];  
+      [:##j :##quote];  
       [:##k :!Squote];  
       [:##n :!S7]; & aNd 
       [:##m :!S4];  $ dollar money
@@ -229,6 +232,9 @@
         ;;                                     :dorder :insensitive
         ;;                                     :uorder :insensitive
         ;;                                     :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
+        {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:##n {:key f15 :modi :hyper}]]}
+        {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:##m {:key f14 :modi :hyper}]]}
+        {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:##comma {:key f13 :modi :hyper}]]}
         {:des "SuperDuper H -> Left" :rules [:superduper-mode [:##h :left_arrow]]}
         {:des "SuperDuper J -> Down" :rules [:superduper-mode [:##j :down_arrow]]}
         {:des "SuperDuper K -> Up" :rules [:superduper-mode [:##k :up_arrow]]}
@@ -236,6 +242,7 @@
         ;; {:des "SuperDuper F -> Cmd" :rules [:superduper-mode [:##f :left_command]]}
         {:des "SuperDuper ; -> Delete" :rules [:superduper-mode [:##semicolon :delete_or_backspace]]}
         {:des "SuperDuper ; -> Forward Delete" :rules [:superduper-mode [:##quote :delete_forward]]}
+        {:des "SuperDuper enter -> Forward Delete" :rules [:qmk :superduper-mode [:##return_or_enter :delete_forward]]}
         {:des "SuperDuper I -> Prev Tab" :rules [:superduper-mode [:##i :!CSopen_bracket]]}
         {:des "SuperDuper O -> Next Tab" :rules [:superduper-mode [:##o :!CSclose_bracket]]}
         {:des "SuperDuper U -> First Tab" :rules [:superduper-mode [:##u :!C1 :!code]]}
@@ -291,8 +298,10 @@
                  ]
                  }
                   
-    {:des "Caps lock -> Super Duper / Esc" :rules [[:##caps_lock ["superduper-mode" 1] nil {:alone :escape :afterup ["superduper-mode" 0]}]]}
-    {:des "Quote ->  Hyper / Quote" :rules [[:quote :!CTOleft_shift nil {:alone :quote }]]}
+    {:des "Caps lock -> Super Duper / Esc" :rules [[:##caps_lock ["superduper-mode" 1] [:!sym-one] {:alone :escape :afterup ["superduper-mode" 0]}]]}
+    {:des "Quote ->  Hyper / Quote" :rules [ [:##quote :!CTOleft_shift nil {:alone :##return_or_enter }]]}
+    ;; {:des "Quote ->  Hyper / Quote" :rules [[:##quote :!CTOleft_shift nil {:alone :##quote }]]}
+    ;; {:des "enter ->  Hyper / Quote" :rules [:qmk [:return_or_enter :!CTOleft_shift nil {:alone :return_or_enter }]]}
     ;; {:des "Caps lock -> Hyper / Esc" :rules [[:caps_lock :!CTOleft_shift nil {:alone :escape}]]}
         ;; {:des "Shift + Space = space = qoutes" :rules [[:!Sspacebar [:spacebar :equal_sign :spacebar :!Squote ]]]}
         {:des "launch"
@@ -370,10 +379,9 @@
     {:des "code"
       :rules [:code
       [:!!u [:backslash :backslash :s]]
+      [:!!b [:backslash :backslash :s]]
       [:!!i :expand_selection]
       [:!!k :shrink_selection]
-      [:right_command :right_command nil {:alone :focus_editor}]
-      [:left_option :left_option nil {:alone :focus_terminal}]
     ]}
 
 
