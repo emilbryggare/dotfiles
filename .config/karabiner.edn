@@ -25,8 +25,9 @@
  }
   :applications {;
     :chrome ["com.google.Chrome"]
-    :code ["com.microsoft.VSCode"]
+    :code ["com.microsoft.VSCode", "com.todesktop.230313mzl4w4u92"]
     :slack ["com.tinyspeck.slackmacgap"]
+    :mail ["com.apple.mail"]
   }
 
  ; :layers {
@@ -82,7 +83,7 @@
     :greater_than {:key :period :modi :shift}
 
     ;shortcuts
-    :autocomplete {:key :spacebar :modi :control} 
+    :autocomplete {:key :spacebar :modi :control}
     :cursor_find_match {:key :d :modi :command}
     :cursor_above {:key :up_arrow :modi :co}
     :cursor_below {:key :down_arrow :modi :co}
@@ -99,7 +100,17 @@
                   open -a 'Visual Studio Code' %s -g %s
                   "
     :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
-    :launch "osascript -e 'tell application \"%s\" to activate'"
+:launch "osascript -e '
+tell application \"%s\"
+    activate
+end tell
+'"
+;;     :launch "osascript -e '
+;;     tell application \"System Events\"
+;; 	tell process \"%s\"
+;; 		set frontmost to true
+;; 	end tell
+;; end tell'"
     :open-chrome "osascript -e '
               set address to \"%s\"
               
@@ -133,6 +144,7 @@
   :main [             
         {:des "Left option -> Cmd " :rules [:sculpt [:##left_option :##left_command ]]}
         {:des "Left cmd -> option " :rules [:sculpt [:##left_command :##left_option ]]}
+    
 
     ;; {:des "swe mode"
     ;;              :rules [
@@ -225,6 +237,7 @@
       [:left_command {:pkey :button1}]
       [:right_command {:pkey :button2}]
     ]}
+        {:des "SuperDuper CMD + E -> Archive MAIL" :rules [:superduper-mode [:i :!CTa :mail]]}
         {:des "Right option -> Cmd " :rules [:!qmk [:##right_option :##right_command ]]}
         {:des "Right application -> Option " :rules [:!qmk [:##application :##right_option ]]}
         ;; {:des "SuperDuper <- S+D" :rules [ [{:sim [:s :d]
@@ -232,9 +245,11 @@
         ;;                                     :dorder :insensitive
         ;;                                     :uorder :insensitive
         ;;                                     :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
+        {:des "SuperDuper B -> Homerow" :rules [:superduper-mode [:##b {:key f16 :modi :hyper}]]}
         {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:##n {:key f15 :modi :hyper}]]}
         {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:##m {:key f14 :modi :hyper}]]}
-        {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:##comma {:key f13 :modi :hyper}]]}
+        {:des "SuperDuper V -> Homerow" :rules [:superduper-mode [:##v {:key f13 :modi :hyper}]]}
+        {:des "SuperDuper N -> Homerow" :rules [:superduper-mode [:comma {:key f13 :modi :hyper}]]}
         {:des "SuperDuper H -> Left" :rules [:superduper-mode [:##h :left_arrow]]}
         {:des "SuperDuper J -> Down" :rules [:superduper-mode [:##j :down_arrow]]}
         {:des "SuperDuper K -> Up" :rules [:superduper-mode [:##k :up_arrow]]}
@@ -253,7 +268,6 @@
         {:des "SuperDuper S -> Option" :rules [:superduper-mode [:##s :left_option]]}
         {:des "SuperDuper D -> Option" :rules [:superduper-mode [:##d :left_command]]}
         {:des "SuperDuper F -> Option" :rules [:superduper-mode [:##f :left_shift]]}
-        {:des "SuperDuper V -> Shift" :rules [:superduper-mode [:##v :left_shift]]}
         {:des "SuperDuper space -> tab" :rules [:superduper-mode [:##spacebar :tab]]}
          {:des "swe"
       :rules [
@@ -299,7 +313,7 @@
                  }
                   
     {:des "Caps lock -> Super Duper / Esc" :rules [[:##caps_lock ["superduper-mode" 1] [:!sym-one] {:alone :escape :afterup ["superduper-mode" 0]}]]}
-    {:des "Quote ->  Hyper / Quote" :rules [ [:##quote :!CTOleft_shift nil {:alone :##return_or_enter }]]}
+    {:des "Quote ->  Hyper / Quote" :rules [ [:##quote :!CTOleft_shift ]]}
     ;; {:des "Quote ->  Hyper / Quote" :rules [[:##quote :!CTOleft_shift nil {:alone :##quote }]]}
     ;; {:des "enter ->  Hyper / Quote" :rules [:qmk [:return_or_enter :!CTOleft_shift nil {:alone :return_or_enter }]]}
     ;; {:des "Caps lock -> Hyper / Esc" :rules [[:caps_lock :!CTOleft_shift nil {:alone :escape}]]}
@@ -307,15 +321,15 @@
         {:des "launch"
          :rules
          [:launch-mode
-          [:1 :open_1password]
-          [:c [:launch "code" ]]
-          [:d [:launch "Discord"]]
-          [:i [:launch "iTerm"]]
-          [:s [:launch "Slack"]]
-          [:t [:launch "Chrome"]] ;
-          [:p [:launch "Spotify"]] ;
-          [:n [:launch "Notion"]] ;
-          [:z [:launch "Visual Studio Code"]];viZ
+          [:x [["launch-mode" 0]]] ;
+          [:s [[:launch "Safari"] ["launch-mode" 0]]] ;
+          [:c [[:launch "Code"] ["launch-mode" 0]]] ;
+          [:t [[:launch "Chrome"] ["launch-mode" 0]]] ;
+          [:d [[:launch "Google Chrome Canary"] ["launch-mode" 0]]] ;
+          [:y [[:launch "Spotify"] ["launch-mode" 0]]] ;
+          [:m [[:launch "Mimestream"] ["launch-mode" 0]]] ;
+          [:g [[:launch "GitHub Desktop"] ["launch-mode" 0]]] ;
+          [:n [[:launch "Notion"] ["launch-mode" 0]]] ;
           ]}
 
     {:des "numbers"
@@ -379,7 +393,8 @@
     {:des "code"
       :rules [:code
       [:!!u [:backslash :backslash :s]]
-      [:!!b [:backslash :backslash :s]]
+      [:!!q [:backslash :backslash :s]]
+      [:!!a [:backslash :backslash :backslash :j]]
       [:!!i :expand_selection]
       [:!!k :shrink_selection]
     ]}
@@ -400,6 +415,7 @@
       [:j :cursor_below]
       [:k :cursor_above]
       [:u [:backslash :backslash :s]]
+      [:q [:backslash :backslash :s]]
       ]
     }
 

@@ -8,7 +8,8 @@
 	smudge = git-lfs smudge -- %f
 [diff]
     guitool = vscode
+	tool = vscode
 [difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = "code --wait --diff  "
 [init]
 	defaultBranch = main
